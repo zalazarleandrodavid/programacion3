@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Producto</title>
+
+    <link rel="stylesheet" href="../../../style.css">
+</head>
+
+<body>
+
+    <header class="main-header">
+
+        <div class="logo">
+            <h1>Food<span>Store</span></h1>
+        </div>
+
+        <nav class="nav-icons">
+
+            <a href="../home/home.html" class="nav-link-catalogo">
+                Catálogo
+            </a>
+
+            <a href="../cart/cart.html" class="cart-link">
+                🛒 Mi Carrito
+                <span id="cart-count">0</span>
+            </a>
+                    <button id="logout-btn">
+            Cerrar Sesión
+        </button>
+        </nav>
+
+    </header>
+
+    <main class="product-detail-container">
+
+        <button
+            id="btn-back"
+            class="btn-back"
+            onclick="history.back()"
+        >
+            ← Volver
+        </button>
+
+        <div class="product-detail-card">
+
+            <div class="product-image-container">
+
+                <img
+                    id="product-image"
+                    src=""
+                    alt=""
+                >
+
+            </div>
+
+            <div class="product-info-container">
+
+                <h2 id="product-name"></h2>
+
+                <p id="product-description"></p>
+
+                <h3 id="product-price"></h3>
+
+                <p>
+                    Stock:
+                    <span id="product-stock"></span>
+                </p>
+
+                <p>
+                    Estado:
+                    <span id="product-status"></span>
+                </p>
+
+                <div class="quantity-container">
+
+                    <label for="quantity">
+                        Cantidad
+                    </label>
+
+                    <input
+                        type="number"
+                        id="quantity"
+                        min="1"
+                        value="1"
+                    >
+
+                </div>
+
+                <button
+                    id="btn-add-cart"
+                    class="btn-add-cart"
+                >
+                    Agregar al Carrito
+                </button>
+
+                <p id="message"></p>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <script
+        type="module"
+        src="./details.ts"
+    ></script>
+
+</body>
+
+</html>

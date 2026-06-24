@@ -1,0 +1,6 @@
+[
+  { "id": 1, "nombre": "Hamburguesas", "descripcion": "Nuestras hamburguesas gourmet.", "imagen": "https://images.unsplash.com/photo-1550547660-d9450f859349?w=500" },
+  { "id": 2, "nombre": "Pizzas", "descripcion": "Pizzas artesanales.", "imagen": "https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?w=500" },
+  { "id": 3, "nombre": "Acompañamientos", "descripcion": "Lo ideal para compartir.", "imagen": "https://lacampagnola.com/uploads/recipes/5de95b79ab00c.png" },
+  { "id": 4, "nombre": "Bebidas", "descripcion": "Refrescos y cervezas.", "imagen": "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=500" }
+]

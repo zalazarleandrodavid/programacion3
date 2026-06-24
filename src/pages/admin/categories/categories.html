@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Categorías | FoodStore</title>
+    <link rel="stylesheet" href="../../../style.css">
+    </head>
+<body>
+
+    <header class="admin-nav-header">
+        <div class="admin-nav-logo">FoodStore Admin</div>
+        <nav class="admin-nav-links">
+            <a href="/src/pages/store/home/home.html">Tienda</a>
+            <a href="/src/pages/admin/adminHome/adminHome.html">Panel Administración</a>
+            <button class="admin-nav-logout-btn">Cerrar Sesión</button>
+        </nav>
+    </header>
+
+    <div class="admin-container">
+        <aside class="sidebar">
+            <h2>Admin Panel</h2>
+            <nav>
+                <ul>
+                    <li><a href="/src/pages/admin/adminHome/adminHome.html">Dashboard</a></li>
+                    <li><a href="/src/pages/admin/categories/categories.html" class="active">Categorías</a></li>
+                    <li><a href="/src/pages/admin/product/product.html">Productos</a></li>
+                    <li><a href="/src/pages/admin/orders/orders.html">Pedidos</a></li>
+                    <li><hr></li>
+                    <li><a href="/src/pages/store/home/home.html">Ver Tienda</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="dashboard-content">
+            <header class="dashboard-header">
+                <h1>Gestión de Categorías</h1>
+                <!-- <button class="btn-primary">+ Nueva Categoría</button> -->
+            </header>
+
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Imagen</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="categorias-body">
+                    </tbody>
+            </table>
+        </main>
+    </div>
+
+    <script type="module" src="./categories.ts"></script>
+</body>
+</html>

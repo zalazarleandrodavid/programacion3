@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | FoodStore</title>
+    <link rel="stylesheet" href="../../../style.css">
+</head>
+
+<body>
+
+    <header class="admin-nav-header">
+        <div class="admin-nav-logo">FoodStore Admin</div>
+        <nav class="admin-nav-links">
+            <a href="/src/pages/store/home/home.html">Tienda</a>
+            <a href="/src/pages/admin/adminHome/adminHome.html">Panel Administración</a>
+            <button class="admin-nav-logout-btn" onclick="window.location.href='/login.html'">Cerrar Sesión</button>
+        </nav>
+    </header>
+
+    <div class="admin-container">
+        <aside class="sidebar">
+            <h2>Admin Panel</h2>
+            <nav>
+                <ul>
+                    <li><a href="/src/pages/admin/adminHome/adminHome.html">Dashboard</a></li>
+                    <li><a href="/src/pages/admin/categories/categories.html">Categorías</a></li>
+                    <li><a href="/src/pages/admin/product/product.html">Productos</a></li>
+                    <li><a href="/src/pages/admin/orders/orders.html">Pedidos</a></li>
+                    <li><hr></li>
+                    <li><a href="/src/pages/store/home/home.html">Ver Tienda</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="dashboard-content">
+            <header class="dashboard-header">
+                <h1>Panel de Administración</h1>
+            </header>
+
+            <section class="stats-grid">
+                <a href="/src/pages/admin/categories/categories.html" class="card purple">
+                    <h3>Categorías</h3>
+                    <p id="stat-categorias">0</p>
+                </a>
+                
+                <a href="/src/pages/admin/product/product.html" class="card pink">
+                    <h3>Productos</h3>
+                    <p id="stat-productos">0</p>
+                </a>
+                
+                <a href="/src/pages/admin/orders/orders.html" class="card blue">
+                    <h3>Pedidos</h3>
+                    <p id="stat-pedidos">0</p>
+                </a>
+                
+                <a href="/src/pages/admin/product/product.html" class="card green">
+                    <h3>Disponibles</h3>
+                    <p id="stat-disponibles">0</p>
+                </a>
+            </section>
+
+            <section class="dashboard-header">
+                <h2>Resumen Rápido</h2>
+            </section>
+
+            <section class="stats-grid">
+                <div class="card" style="background: white; color: #333;">
+                    <h3>Ingresos Totales</h3>
+                    <p id="res-ingresos">$0</p>
+                </div>
+                <div class="card" style="background: white; color: #333;">
+                    <h3>Pedidos Pendientes</h3>
+                    <p id="res-pendientes">0</p>
+                </div>
+                <div class="card" style="background: white; color: #333;">
+                    <h3>En Preparación</h3>
+                    <p id="res-preparacion">0</p>
+                </div>
+                <div class="card" style="background: white; color: #333;">
+                    <h3>Completados</h3>
+                    <p id="res-completados">0</p>
+                </div>
+            </section>
+
+            <section class="details-panel">
+                <h2>Resumen Detallado</h2>
+                <div id="resumen-detallado" class="resumen-grid"></div>
+            </section>
+        </main>
+    </div>
+
+    <script type="module" src="./dashboard.ts"></script>
+</body>
+
+</html>

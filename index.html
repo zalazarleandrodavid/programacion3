@@ -1,17 +1,46 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vite + TS</title>
+  <title>FoodStore | Bienvenido</title>
+  <style>
+    /* Un pequeño estilo para que no se vea una pantalla blanca vacía */
+    body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background-color: #f0f0f0; }
+  </style>
 </head>
-
 <body>
-  <script>
-    window.location.href = 'src/pages/auth/login/login.html'
-  </script>
-</body>
 
+  <div id="loader">Cargando aplicación...</div>
+
+  <script>
+  // 1. Verificamos qué hay en el localStorage
+  const userData = localStorage.getItem('userData');
+  console.log("Datos encontrados en localStorage:", userData);
+
+  if (!userData) {
+    console.log("No hay usuario. Redirigiendo a Login...");
+    window.location.href = '/src/pages/auth/login/login.html';
+  } else {
+    try {
+      const user = JSON.parse(userData);
+      console.log("Usuario parseado:", user);
+      
+      // 2. Redirección dinámica basada en rol
+      if (user.role === 'admin') {
+        console.log("Es admin, redirigiendo a adminHome...");
+        window.location.href = '/src/pages/admin/adminHome/adminHome.html';
+      } else {
+        console.log("Es cliente, redirigiendo a home...");
+        window.location.href = '/src/pages/store/home/home.html';
+      }
+    } catch (e) {
+      console.error("Error al procesar el usuario:", e);
+      localStorage.removeItem('userData'); // Limpiamos si está corrupto
+      window.location.href = '/src/pages/auth/login/login.html';
+    }
+  }
+</script>
+  
+</body>
 </html>

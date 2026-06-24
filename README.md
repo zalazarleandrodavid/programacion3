@@ -1,10 +1,16 @@
-# Proyecto: Protección de Rutas (Educativo)
+# 🧩 Proyecto: Aplicación Web (Primer Parcial)
 
-## ✍️ Descripción
+## 📌 Descripción
 
-Este es un proyecto de demostración creado con fines educativos para ilustrar un mecanismo básico de protección de rutas en el lado del cliente (frontend) utilizando **Vite** y **TypeScript**.
+Este proyecto corresponde al desarrollo de una aplicación web como parte de un parcial práctico.  
+Está construido utilizando **Vite + TypeScript** y tiene como objetivo integrar distintas funcionalidades clave del frontend, como:
 
-El objetivo es mostrar cómo se puede restringir el acceso a ciertas páginas según el rol de un usuario (por ejemplo, `ADMIN` o `CLIENT`).
+- Manejo de estado de la aplicación
+- Gestión de sesión de usuario
+- Implementación de funcionalidades específicas (ej: carrito, navegación, validaciones)
+- Interacción entre componentes y lógica de negocio
+
+El proyecto busca simular un entorno real de aplicación SPA (Single Page Application) que en este caso es una FOODSTORE.
 
 ---
 
@@ -15,7 +21,6 @@ La protección de rutas implementada en este proyecto **NO ES SEGURA** y no debe
 - **Razón**: La lógica de autenticación se basa en datos guardados en `localStorage` en el navegador del usuario.
 - **Riesgo**: Cualquier usuario con conocimientos técnicos básicos puede abrir las herramientas de desarrollador del navegador para inspeccionar, modificar o eliminar los datos de `localStorage`, obteniendo así acceso no autorizado a rutas protegidas.
 
-Este enfoque es útil únicamente para fines de aprendizaje y para prototipos de bajo riesgo. La seguridad real debe implementarse en el **backend**.
 
 ---
 
@@ -51,33 +56,42 @@ La aplicación estará disponible en la URL que aparezca en la terminal (general
 
 ---
 
-## ⚙️ ¿Cómo Funciona la Protección de Rutas?
-
-El mecanismo es simple y se gestiona desde el código TypeScript en la carpeta `src/utils`:
-
-1.  **Inicio de Sesión**: Cuando un usuario se "loguea", su información (incluido su rol) se guarda como un string JSON en `localStorage`.
-2.  **Carga de Página Protegida**: Cada vez que se intenta cargar una página protegida (ej. la página de Administrador), se ejecuta un script de verificación (`checkAuhtUser` en `src/utils/auth.ts`).
-3.  **Verificación**: El script comprueba:
-    - Si existe un usuario en `localStorage`. Si no, redirige al login.
-    - Si el rol del usuario guardado coincide con el rol requerido para acceder a esa página. Si no coincide, lo redirige a una página de acceso denegado o a su "home" correspondiente.
-4.  **Cierre de Sesión (Logout)**: Al cerrar sesión, la información del usuario se elimina de `localStorage`.
-
----
-
-## 📁 Estructura del Proyecto
+## 📂 Estructura del proyecto
 
 ```
 /
+├── node_modules/             # Dependencias del proyecto
+├── public/                  # Archivos estáticos públicos
+│
 ├── src/
-│   ├── pages/                # Contiene las páginas de la aplicación
-│   │   ├── admin/            # Páginas solo para administradores
-│   │   ├── auth/             # Páginas de autenticación (login, registro)
-│   │   └── client/           # Páginas solo para clientes
-│   ├── types/                # Define las interfaces y tipos (IUser, Rol)
-│   └── utils/                # Lógica reutilizable
-│       ├── auth.ts           # Función principal de verificación de rol y sesión
-│       ├── localStorage.ts   # Funciones para leer/escribir en localStorage
-│       └── navigate.ts       # Función para redirigir al usuario
-├── package.json              # Dependencias y scripts
-└── README.md                 # Este archivo
+│   ├── data/                # Datos simulados o mock
+│   │   └── data.ts
+│   │
+│   ├── pages/               # Páginas de la aplicación
+│   │   └── store/
+│   │       ├── cart/        # Vista del carrito
+│   │       │   ├── cart.html
+│   │       │   └── cart.ts
+│   │       │
+│   │       └── home/        # Página principal (productos)
+│   │           ├── home.html
+│   │           └── home.ts
+│   │
+│   ├── types/               # Definición de tipos/interfaces
+│   │   ├── catalogo.ts
+│   │   └── product.ts
+│   │
+│   ├── utils/               # Funciones reutilizables (helpers)
+│   │
+│   ├── main.ts              # Punto de entrada de la app
+│   ├── style.css            # Estilos globales
+│   └── vite-env.d.ts        # Tipos de entorno de Vite
+│
+├── index.html               # HTML principal
+├── package.json             # Scripts y dependencias
+├── package-lock.json        # Lock de npm
+├── pnpm-lock.yaml           # Lock de pnpm
+├── .gitignore               # Archivos ignorados por git
+├── excalidraw_scheme.excalidraw  # Diagrama del proyecto
+└── README.md                # Documentación
 ```

@@ -1,0 +1,55 @@
+import type { Product } from "../types/product";
+
+export const products: Product[] = [
+    // --- HAMBURGUESAS 
+    { id: 1, nombre: "Bacon Burger", descripcion: "Triple carne, cheddar y mucho bacon crocante.", precio: 8500, imagen: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500", categoria: "Hamburguesas" },
+    { id: 2, nombre: "Hamburguesa clasica", descripcion: "Carne vacuna, doble cheddar, cebolla y pickles.", precio: 5500, imagen: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=500", categoria: "Hamburguesas" },
+    { id: 3, nombre: "Crispy Chicken", descripcion: "Pollo rebozado, lechuga y mayonesa de hierbas.", precio: 6200, imagen: "https://bk-latam-prod.s3.amazonaws.com/sites/burgerking.latam/files/BK_Web_CRISPYCHICKENTOMATE_500X540px.png", categoria: "Hamburguesas" },
+    { id: 4, nombre: "Veggie Green", descripcion: "Medallón de lentejas, palta y tomate.", precio: 5800, imagen: "https://hellolittlehome.com/wp-content/uploads/2024/02/green-burgers-1.jpg", categoria: "Hamburguesas" },
+    { id: 5, nombre: "Monster Stack", descripcion: "Cuádruple carne, huevo frito y alioli.", precio: 9800, imagen: "https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=500", categoria: "Hamburguesas" },
+    { id: 6, nombre: "BBQ Smoke", descripcion: "Salsa barbacoa, aros de cebolla y panceta.", precio: 7500, imagen: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=500", categoria: "Hamburguesas" },
+    { id: 7, nombre: "Blue Cheese", descripcion: "Queso azul, rúcula y cebollas caramelizadas.", precio: 7900, imagen: "https://images.unsplash.com/photo-1607013251379-e6eecfffe234?w=500", categoria: "Hamburguesas" },
+    { id: 8, nombre: "Spicy Mexican", descripcion: "Jalapeños, guacamole y nachos rotos.", precio: 7200, imagen: "https://images.unsplash.com/photo-1596662951482-0c4ba74a6df6?w=500", categoria: "Hamburguesas" },
+    { id: 9, nombre: "Truffle Burger", descripcion: "Aceite de trufa y hongos salteados.", precio: 9500, imagen: "https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=500", categoria: "Hamburguesas" },
+    { id: 10, nombre: "Sweet Onion", descripcion: "Doble carne y mermelada de cebolla tinta.", precio: 6800, imagen: "https://images.unsplash.com/photo-1547584370-2cc98b8b8dc8?w=500", categoria: "Hamburguesas" },
+    { id: 11, nombre: "Ranch Burger", descripcion: "Aderezo ranch y lechuga fresca.", precio: 6400, imagen: "https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=500", categoria: "Hamburguesas" },
+    { id: 12, nombre: "Bacon Egg", descripcion: "Huevo a la plancha y tiras de bacon.", precio: 7100, imagen: "https://images.unsplash.com/photo-1596662951482-0c4ba74a6df6?w=500", categoria: "Hamburguesas" },
+    { id: 13, nombre: "Double Deluxe", descripcion: "El clásico de la casa con doble de todo.", precio: 8200, imagen: "https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?w=500", categoria: "Hamburguesas" },
+
+    // --- PIZZAS 
+    { id: 14, nombre: "Margarita", descripcion: "Muzzarella fior di latte y albahaca.", precio: 7200, imagen: "https://cdn.blog.paulinacocina.net/wp-content/uploads/2023/09/pizza-margherita-paulina-cocina-recetas.jpg", categoria: "Pizzas" },
+    { id: 15, nombre: "Pepperoni King", descripcion: "Doble porción de pepperoni americano.", precio: 8500, imagen: "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=500", categoria: "Pizzas" },
+    { id: 16, nombre: "Cuatro Quesos", descripcion: "Parmesano, azul, muzzarella y gouda.", precio: 9000, imagen: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500", categoria: "Pizzas" },
+    { id: 17, nombre: "Fugazzeta", descripcion: "Mucha cebolla y queso derretido.", precio: 7800, imagen: "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=500", categoria: "Pizzas" },
+    { id: 18, nombre: "Napolitana", descripcion: "Tomate natural, ajo y perejil.", precio: 7500, imagen: "https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?w=500", categoria: "Pizzas" },
+    { id: 19, nombre: "Pizza BBQ", descripcion: "Pollo, barbacoa y cebolla morada.", precio: 8900, imagen: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500", categoria: "Pizzas" },
+    { id: 20, nombre: "Jardinera", descripcion: "Choclo, pimientos y aceitunas negras.", precio: 8200, imagen: "https://images.unsplash.com/photo-1541745537411-b8046dc6d66c?w=500", categoria: "Pizzas" },
+    { id: 21, nombre: "Pizza Prosciutto", descripcion: "Jamón crudo, rúcula y parmesano.", precio: 9500, imagen: "https://images.unsplash.com/photo-1595708684082-a173bb3a06c5?w=500", categoria: "Pizzas" },
+    { id: 22, nombre: "Calabresa", descripcion: "Salame tipo calabrés y muzzarella.", precio: 8400, imagen: "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?w=500", categoria: "Pizzas" },
+    { id: 23, nombre: "Pizza Tropical", descripcion: "Jamón y rodajas de piña.", precio: 7900, imagen: "https://images.unsplash.com/photo-1528137871618-79d2761e3fd5?w=500", categoria: "Pizzas" },
+    { id: 24, nombre: "Veggie Special", descripcion: "Champiñones y pimientos asados.", precio: 8100, imagen: "https://images.unsplash.com/photo-1506354666786-959d6d497f1a?w=500", categoria: "Pizzas" },
+    { id: 25, nombre: "Margarita Hot", descripcion: "Margarita con toque de pepperoncino.", precio: 7300, imagen: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500", categoria: "Pizzas" },
+    { id: 26, nombre: "Pizza Bianca", descripcion: "Sin salsa, solo quesos y hierbas.", precio: 7000, imagen: "https://images.unsplash.com/photo-1555072956-7758afb20e8f?w=500", categoria: "Pizzas" },
+
+    // --- ACOMPAÑAMIENTOS 
+    { id: 27, nombre: "Papas Rústicas", descripcion: "Papas con piel y especias.", precio: 3500, imagen: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=500", categoria: "Acompañamientos" },
+    { id: 28, nombre: "Papas Cheddar", descripcion: "Bañadas en salsa cheddar y verdeo.", precio: 4200, imagen: "https://images.unsplash.com/photo-1585109649139-366815a0d713?w=500", categoria: "Acompañamientos" },
+    { id: 29, nombre: "Aros de Cebolla", descripcion: "Fritos y muy crujientes (10u).", precio: 3200, imagen: "https://cdn.blog.paulinacocina.net/wp-content/uploads/2021/12/aros-de-cebolla-fritos.jpg", categoria: "Acompañamientos" },
+    { id: 30, nombre: "Nuggets de Pollo", descripcion: "Piezas de pollo con salsa Honey Mustard.", precio: 4500, imagen: "https://www.divinacocina.es/wp-content/uploads/2018/08/nuggets-de-pollo-caseros-3.jpg", categoria: "Acompañamientos" },
+    { id: 34, nombre: "Papas Provenzal", descripcion: "Con mucho ajo y perejil fresco.", precio: 3600, imagen: "https://lacampagnola.com/uploads/recipes/5de95b79ab00c.png", categoria: "Acompañamientos" },
+    { id: 36, nombre: "Alitas BBQ", descripcion: "6 piezas bañadas en barbacoa ahumada.", precio: 5500, imagen: "https://images.unsplash.com/photo-1567620832903-9fc6debc209f?w=500", categoria: "Acompañamientos" },
+    { id: 38, nombre: "Papas al Horno", descripcion: "Con romero y aceite de oliva.", precio: 3100, imagen: "https://i.ytimg.com/vi/L20t-OrO8b0/maxresdefault.jpg", categoria: "Acompañamientos" },
+
+    // --- BEBIDAS
+    
+    { id: 40, nombre: "Coca Cola 500ml", descripcion: "Gaseosa línea original.", precio: 1500, imagen: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=500", categoria: "Bebidas" },
+    { id: 41, nombre: "Limonada Menta", descripcion: "Limón, menta y jengibre.", precio: 2100, imagen: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=500", categoria: "Bebidas" },
+    { id: 42, nombre: "Cerveza Pinta", descripcion: "IPA artesanal de la casa.", precio: 3000, imagen: "https://images.unsplash.com/photo-1535958636474-b021ee887b13?w=500", categoria: "Bebidas" },
+    { id: 43, nombre: "Agua Mineral", descripcion: "Con o sin gas 500ml.", precio: 1200, imagen: "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?w=500", categoria: "Bebidas" },
+    { id: 44, nombre: "Iced Tea", descripcion: "Té frío con rodaja de limón.", precio: 1800, imagen: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=500", categoria: "Bebidas" },
+    { id: 45, nombre: "Malteada Oreo", descripcion: "Cremosa con galletas trituradas.", precio: 3500, imagen: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=500", categoria: "Bebidas" },
+    { id: 47, nombre: "Cerveza Rubia", descripcion: "Lager clásica de 500ml.", precio: 2800, imagen: "https://images.unsplash.com/photo-1566633806327-68e152aaf26d?w=500", categoria: "Bebidas" },
+    { id: 48, nombre: "Sprite 500ml", descripcion: "Gaseosa lima-limón.", precio: 1500, imagen: "https://kevinbakery.com/cdn/shop/products/Sprite_1024x1024.jpg?v=1469347200", categoria: "Bebidas" },
+    { id: 49, nombre: "Vino Copa", descripcion: "Malbec reserva de la casa.", precio: 3800, imagen: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=500", categoria: "Bebidas" },
+    { id: 50, nombre: "Café Espresso", descripcion: "Grano tostado premium.", precio: 1600, imagen: "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=500", categoria: "Bebidas" },
+];

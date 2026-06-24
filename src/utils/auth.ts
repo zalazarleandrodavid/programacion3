@@ -1,33 +1,68 @@
-import type { IUser } from "../types/IUser";
-import type { Rol } from "../types/Rol";
-import { getUSer, removeUser } from "./localStorage";
-import { navigate } from "./navigate";
+import users from "../data/users.json";
 
-export const checkAuhtUser = (
-  redireccion1: string,
-  redireccion2: string,
-  rol: Rol
-) => {
-  console.log("comienzo de checkeo");
+export interface UserSession {
+  id: number;
+  nombre: string;
+  mail: string;
+  rol: "admin" | "user";
+}
 
-  const user = getUSer();
+export const login = (
+  email: string,
+  password: string
+): UserSession | null => {
 
-  if (!user) {
-    console.log("no existe en local");
-    navigate(redireccion1);
-    return;
-  } else {
-    console.log("existe pero no tiene el rol necesario");
+  const found = users.find(
+    (u) => u.mail === email && u.password === password
+  );
 
-    const parseUser: IUser = JSON.parse(user);
-    if (parseUser.role !== rol) {
-      navigate(redireccion2);
-      return;
-    }
-  }
+  if (!found) return null;
+
+  const sessionData: UserSession = {
+    id: found.id,
+    nombre: found.nombre,
+    mail: found.mail,
+    rol: found.rol as "admin" | "user"
+  };
+
+  localStorage.setItem(
+    "userData",
+    JSON.stringify(sessionData)
+  );
+
+  return sessionData;
 };
 
 export const logout = () => {
-  removeUser();
-  navigate("/src/pages/auth/login/login.html");
+  localStorage.removeItem("userData");
+
+  window.location.href =
+    "/src/pages/auth/login/login.html";
+};
+
+export const getSession = (): UserSession | null => {
+  const session = localStorage.getItem("userData");
+
+  return session ? JSON.parse(session) : null;
+};
+
+export const protectRoute = (
+  requiredRole?: "admin" | "user"
+) => {
+
+  const session = getSession();
+
+  if (!session) {
+    window.location.href =
+      "/src/pages/auth/login/login.html";
+    return;
+  }
+
+  if (
+    requiredRole &&
+    session.rol !== requiredRole
+  ) {
+    window.location.href =
+      "/src/pages/store/home/home.html";
+  }
 };

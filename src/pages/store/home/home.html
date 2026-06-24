@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Store - Inicio</title>
+    <link rel="stylesheet" href="../../../style.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="logo">
+            <h1>Food<span>Store</span></h1>
+        </div>
+
+        <div class="search-container">
+            <input type="text" id="input-search" placeholder="Tienes Hambre?..🍔 🍕 🥤">
+        </div>
+
+        <nav class="nav-icons">
+            <a href="./home.html" class="nav-link-catalogo">🏠 Catálogo</a>
+            <a href="../client/orders/orders.html" class="nav-link-catalogo">📦 Mis Pedidos</a>
+            <a href="../cart/cart.html" class="nav-link-catalogo">
+                🛒 Mi Carrito
+                <span id="cart-count">0</span>
+            </a>
+            
+            <a id="admin-link" href="/src/pages/admin/adminHome/adminHome.html" class="nav-link-catalogo" style="display: inline-flex; min-width: auto;">
+                Panel Administración
+            </a>
+            
+            <button id="logout-btn" class="nav-link-catalogo">Cerrar Sesión</button>
+        </nav>
+    </header>
+
+    <main class="store-container">
+        <aside class="sidebar">
+            <h3>Categorías</h3>
+            <ul id="category-list"></ul>
+        </aside>
+
+        <section class="products-section">
+            <h2 id="category-title">Todos los productos</h2>
+            <div class="filters-container">
+                <select id="sort-select">
+                    <option value="">Ordenar</option>
+                    <option value="az">Nombre A-Z</option>
+                    <option value="za">Nombre Z-A</option>
+                    <option value="priceAsc">Precio Menor</option>
+                    <option value="priceDesc">Precio Mayor</option>
+                </select>
+                <button id="btn-reset" class="btn-reset">Limpiar filtros</button>
+            </div>
+            <p id="products-counter">0 productos encontrados</p>
+            <div id="products-grid" class="products-grid"></div>
+        </section>
+    </main>
+
+    <script type="module" src="./home.ts"></script>
+</body>
+</html>

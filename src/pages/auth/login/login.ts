@@ -1,30 +1,53 @@
+import users from "../../../data/users.json";
 import type { IUser } from "../../../types/IUser";
 import type { Rol } from "../../../types/Rol";
+
 import { navigate } from "../../../utils/navigate";
 
-const form = document.getElementById("form") as HTMLFormElement;
+// 1. Selección de elementos del DOM
+const form = document.getElementById("loginForm") as HTMLFormElement;
 const inputEmail = document.getElementById("email") as HTMLInputElement;
-//const inputPassword = document.getElementById("password") as HTMLInputElement;
-const selectRol = document.getElementById("rol") as HTMLSelectElement;
+const inputPassword = document.getElementById("password") as HTMLInputElement;
+const errorMessage = document.getElementById("errorMessage") as HTMLDivElement;
 
-form.addEventListener("submit", (e: SubmitEvent) => {
-  e.preventDefault();
-  const valueEmail = inputEmail.value;
-  //const valuePassword = inputPassword.value;
-  const valueRol = selectRol.value as Rol;
+// 2. Manejador del evento de inicio de sesión
+form.addEventListener("submit", (e: Event) => {
+    e.preventDefault();
+    errorMessage.textContent = "";
 
-  if (valueRol === "admin") {
-    navigate("/src/pages/admin/home/home.html");
-  } else if (valueRol === "client") {
-    navigate("/src/pages/client/home/home.html");
-  }
+    const email = inputEmail.value.trim();
+    const password = inputPassword.value.trim();
 
-  const user: IUser = {
-    email: valueEmail,
-    role: valueRol,
-    loggedIn: true,
-  };
+    // Validación básica
+    if (!email || !password) {
+        errorMessage.textContent = "Debe completar todos los campos";
+        return;
+    }
 
-  const parseUser = JSON.stringify(user);
-  localStorage.setItem("userData", parseUser);
+    // Búsqueda de usuario (Nota: Esta lógica asume que las contraseñas están en JSON)
+    const userFound = users.find(
+        (user) => user.mail === email && user.password === password
+    );
+
+    if (!userFound) {
+        errorMessage.textContent = "Correo o contraseña incorrectos";
+        return;
+    }
+
+    // Creación de objeto de usuario autenticado
+    const userToSave: IUser = {
+        ...userFound,
+        rol: userFound.rol as Rol,
+        loggedIn: true
+    };
+
+    // Guardar sesión
+    localStorage.setItem("userData", JSON.stringify(userToSave));
+
+    // Redirección basada en el rol
+    if (userToSave.rol === "admin") {
+        navigate("/src/pages/admin/adminHome/adminHome.html");
+    } else {
+        navigate("/src/pages/store/home/home.html");
+    }
 });

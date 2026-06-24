@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Mis Pedidos - FoodStore
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="../../../../style.css"
+    >
+
+</head>
+
+<body>
+
+    <!-- ========================= -->
+    <!-- HEADER -->
+    <!-- ========================= -->
+
+    <header class="main-header">
+
+        <div class="logo">
+
+            <h1>
+                Food<span>Store</span>
+            </h1>
+
+        </div>
+
+        <nav class="nav-icons">
+
+            <a href="./home.html" class="nav-link-catalogo" style="display: inline-flex; min-width: auto;">
+                🏠 Catálogo
+            </a>
+
+            <a href="../client/orders/orders.html"class="nav-link-catalogo" style="display: inline-flex; min-width: auto;">
+                📦 Mis Pedidos
+            </a>
+
+            <a href="../cart/cart.html"class="nav-link-catalogo" style="display: inline-flex; min-width: auto;">
+                🛒 Mi Carrito
+                <span id="cart-count">0</span>
+            </a>
+
+            <button id="logout-btn"class="nav-link-catalogo" style="display: inline-flex; min-width: auto;">
+                Cerrar Sesión
+                
+            </button>
+
+        </nav>
+
+    </header>
+
+    <!-- ========================= -->
+    <!-- CONTENIDO -->
+    <!-- ========================= -->
+
+    <main class="orders-page">
+
+        <section class="orders-section">
+
+            <h2>
+                Mis Pedidos
+            </h2>
+
+            <p>
+                Historial completo de tus compras
+            </p>
+
+            <div
+                id="orders-list"
+                class="orders-list"
+            >
+
+                <!-- Se carga desde orders.ts -->
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- ========================= -->
+    <!-- MODAL -->
+    <!-- ========================= -->
+
+    <div
+        id="order-modal"
+        class="modal hidden"
+    >
+
+        <div class="modal-content">
+
+            <button
+                id="close-modal"
+                class="close-btn"
+            >
+                ✖
+            </button>
+
+            <div
+                id="modal-body"
+            >
+
+                <!-- Contenido dinámico -->
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ========================= -->
+    <!-- TEMPLATE ESTADO VACÍO -->
+    <!-- ========================= -->
+
+    <template id="empty-orders-template">
+
+        <div class="empty-orders">
+
+            <h3>
+                No tienes pedidos realizados
+            </h3>
+
+            <p>
+                Cuando realices una compra,
+                aparecerá aquí.
+            </p>
+
+            <a
+                href="../home/home.html"
+                class="btn-primary-action"
+            >
+                Ir al Catálogo
+            </a>
+
+        </div>
+
+    </template>
+
+    <script
+        type="module"
+        src="./orders.ts"
+    ></script>
+
+</body>
+
+</html>

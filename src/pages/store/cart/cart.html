@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Carrito - Food Store</title>
+    <link rel="stylesheet" href="../../../style.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="logo">
+            <h1>Food<span>Store</span></h1>
+        </div>
+        <nav class="nav-icons">
+            <a href="../home/home.html" class="nav-link-catalogo">📋 Catálogo</a>
+            <a href="./cart.html" class="cart-link">🛒 Mi Carrito <span id="cart-count">0</span></a>
+            <button id="logout-btn"class="nav-link-catalogo" style="display: inline-flex; min-width: auto;">
+                Cerrar Sesión
+            </button>
+        </nav>
+    </header>
+
+    <main class="cart-page-wrapper">
+        <section id="cart-items-container" class="cart-items-container">
+            <h2>Tu selección de productos</h2>
+            </section>
+
+        <section class="cart-summary-wrapper">
+            <div id="cart-summary-section" class="cart-summary">
+                <h3>Resumen del Pedido</h3>
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span id="cart-subtotal-amount">$0</span>
+                </div>
+                <div class="summary-row">
+                    <span>Envío:</span>
+                    <span>$2500.00</span>
+                </div>
+                <hr class="separator">
+                <div class="summary-row total-row">
+                    <span>Total:</span>
+                    <span id="cart-total-amount">$0</span>
+                </div>
+                <p class="summary-note">Los pedidos se realizan directamente en el local</p>
+                <div class="cart-actions">
+                    <button id="btn-clear-cart" class="btn-danger">🗑 Vaciar Carrito</button>
+                    <button id="btn-checkout" class="btn-primary-action">Finalizar Compra</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script type="module" src="./cart.ts"></script>
+</body>
+</html>

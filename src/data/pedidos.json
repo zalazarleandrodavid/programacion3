@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "usuarioId": 2,
+    "fecha": "2026-06-16 20:15",
+    "estado": "completed",
+    "formaPago": "TARJETA",
+    "costoEnvio": 600,
+    "total": 9600,
+    "direccion": "Av. Siempre Viva 123",
+    "detalles": [
+      {
+        "cantidad": 2,
+        "subtotal": 9000,
+        "producto": {
+          "id": 1,
+          "nombre": "Hamburguesa Clásica",
+          "precio": 4500,
+          "imagen": "https://images.unsplash.com/photo-1550547660-d9450f859349?w=500"
+        }
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "usuarioId": 2,
+    "fecha": "2026-06-10 22:30",
+    "estado": "processing",
+    "formaPago": "EFECTIVO",
+    "costoEnvio": 800,
+    "total": 16300,
+    "direccion": "Belgrano 456",
+    "detalles": [
+      {
+        "cantidad": 1,
+        "subtotal": 8500,
+        "producto": {
+          "id": 10,
+          "nombre": "Bacon Burger",
+          "precio": 8500,
+          "imagen": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500"
+        }
+      },
+      {
+        "cantidad": 1,
+        "subtotal": 7000,
+        "producto": {
+          "id": 14,
+          "nombre": "Pizza Margarita",
+          "precio": 7000,
+          "imagen": "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500"
+        }
+      }
+    ]
+  }
+]

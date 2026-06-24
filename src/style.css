@@ -1,0 +1,246 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+:root {
+    --color-primario: #ff6347;
+    --color-fondo: #f0f0f0;
+    --color-texto: #333;
+    --color-blanco: #fff;
+    --color-borde: #ddd;
+    --color-focus: #ff4500; /* Naranja fuerte para los botones de acción */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+}
+
+/* --- HEADER Y NAVEGACIÓN --- */
+.main-header {
+    background-color: var(--color-primario);
+    color: var(--color-blanco);
+    padding: 1rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo h1 span {
+    font-weight: 300;
+}
+
+#input-search {
+    padding: 10px 20px;
+    border-radius: 25px;
+    border: 1px solid var(--color-borde);
+    width: 300px;
+    outline: none;
+}
+
+#input-search:focus {
+    border-color: var(--color-focus);
+    box-shadow: 0 0 8px rgba(255, 69, 0, 0.2);
+}
+
+.nav-icons {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Espacio generoso entre botones */
+}
+
+/* BOTONES UNIFICADOS (Catálogo y Carrito) */
+.nav-link-catalogo, .cart-link {
+    text-decoration: none;
+    color: var(--color-blanco);
+    background-color: var(--color-focus); /* Mismo fondo para ambos */
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    position: relative; /* Clave para posicionar el contador */
+    min-width: 140px;
+}
+
+.nav-link-catalogo:hover, .cart-link:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+/* EL CONTADOR (BADGE) */
+#cart-count {
+    position: absolute;
+    top: -10px;    /* Por encima del botón */
+    right: -10px;  /* Hacia la derecha para no tapar el texto */
+    background-color: var(--color-blanco);
+    color: var(--color-focus);
+    font-size: 0.8rem;
+    min-width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 800;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    border: 2px solid var(--color-focus);
+}
+
+/* --- LAYOUT Y SIDEBAR --- */
+.store-container {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 30px;
+    padding: 40px 5%;
+}
+
+.category-item {
+    list-style: none;
+    padding: 12px 15px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: 0.3s;
+    background: var(--color-blanco);
+    margin-bottom: 8px;
+    border: 1px solid var(--color-borde);
+    font-weight: 500;
+}
+
+.category-item:hover, .category-item.active {
+    background-color: var(--color-primario);
+    color: var(--color-blanco);
+    border-color: var(--color-primario);
+}
+
+/* --- GRID Y CARDS DE PRODUCTOS --- */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 25px;
+}
+
+.product-card {
+    background: var(--color-blanco);
+    border-radius: 12px;
+    border: 1px solid var(--color-borde);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.product-info {
+    padding: 15px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.price {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-primario);
+    margin: 10px 0;
+}
+
+.btn-add {
+    background-color: var(--color-primario);
+    color: var(--color-blanco);
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+/* --- SECCIÓN DEL CARRITO (CART.HTML) --- */
+.cart-page-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.cart-section {
+    width: 100%;
+    max-width: 600px;
+    background: var(--color-blanco);
+    padding: 30px;
+    border-radius: 15px;
+    border: 1px solid var(--color-borde);
+}
+
+.cart-item {
+    padding: 15px 0;
+    border-bottom: 1px solid var(--color-fondo);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--color-fondo);
+    padding: 6px 12px;
+    border-radius: 25px;
+    margin-right: 10px;
+}
+
+.btn-qty {
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-trash {
+    background: #fff0f0;
+    border: none;
+    color: #e74c3c;
+    width: 35px;
+    height: 35px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-primary-action {
+    background-color: var(--color-primario);
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    font-weight: 700;
+    width: 100%;
+    cursor: pointer;
+    margin-top: 20px;
+}

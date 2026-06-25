@@ -1,7 +1,5 @@
-import users from "../../../data/users.json";
-import type { IUser } from "../../../types/IUser";
-import type { Rol } from "../../../types/Rol";
-
+// auth.ts no necesita importar el JSON, el fetch lo hace dinámicamente
+import { login } from "../../../utils/auth"; 
 import { navigate } from "../../../utils/navigate";
 
 // 1. Selección de elementos del DOM
@@ -10,8 +8,8 @@ const inputEmail = document.getElementById("email") as HTMLInputElement;
 const inputPassword = document.getElementById("password") as HTMLInputElement;
 const errorMessage = document.getElementById("errorMessage") as HTMLDivElement;
 
-// 2. Manejador del evento de inicio de sesión
-form.addEventListener("submit", (e: Event) => {
+// 2. Manejador del evento de inicio de sesión (¡Debe ser async!)
+form.addEventListener("submit", async (e: Event) => {
     e.preventDefault();
     errorMessage.textContent = "";
 
@@ -24,28 +22,17 @@ form.addEventListener("submit", (e: Event) => {
         return;
     }
 
-    // Búsqueda de usuario (Nota: Esta lógica asume que las contraseñas están en JSON)
-    const userFound = users.find(
-        (user) => user.mail === email && user.password === password
-    );
+    // Llamamos a la función asíncrona y esperamos el resultado
+    const userFound = await login(email, password);
 
     if (!userFound) {
         errorMessage.textContent = "Correo o contraseña incorrectos";
         return;
     }
 
-    // Creación de objeto de usuario autenticado
-    const userToSave: IUser = {
-        ...userFound,
-        rol: userFound.rol as Rol,
-        loggedIn: true
-    };
-
-    // Guardar sesión
-    localStorage.setItem("userData", JSON.stringify(userToSave));
-
-    // Redirección basada en el rol
-    if (userToSave.rol === "admin") {
+    // La lógica de guardado en localStorage ya está dentro de tu función login,
+    // así que solo procedemos a la redirección según el rol
+    if (userFound.rol === "admin") {
         navigate("/src/pages/admin/adminHome/adminHome.html");
     } else {
         navigate("/src/pages/store/home/home.html");

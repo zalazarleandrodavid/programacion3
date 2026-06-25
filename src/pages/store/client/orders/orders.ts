@@ -1,450 +1,127 @@
-
-import pedidos from "../../../../data/pedidos.json";
-
-import {
-    logout,
-    protectRoute
-} from "../../../../utils/auth";
+import { logout, protectRoute } from "../../../../utils/auth";
 
 protectRoute();
 
-const ordersList =
-    document.getElementById(
-        "orders-list"
-    ) as HTMLElement;
-
-const modal =
-    document.getElementById(
-        "order-modal"
-    ) as HTMLElement;
-
-const modalBody =
-    document.getElementById(
-        "modal-body"
-    ) as HTMLElement;
-
-const closeModal =
-    document.getElementById(
-        "close-modal"
-    ) as HTMLButtonElement;
-
-const logoutBtn =
-    document.getElementById(
-        "logout-btn"
-    ) as HTMLButtonElement;
-
-logoutBtn?.addEventListener(
-    "click",
-    logout
-);
-
 // ======================================
-// USUARIO LOGUEADO
+// CONFIGURACIÓN DE ESTADOS (Actualizada con tus datos)
 // ======================================
-
-const session = JSON.parse(
-    localStorage.getItem(
-        "userData"
-    ) || "{}"
-);
-
-// ======================================
-// CONTADOR CARRITO
-// ======================================
-
-const updateCartBadge = () => {
-
-    const cart = JSON.parse(
-        localStorage.getItem(
-            "cart"
-        ) || "[]"
-    );
-
-    const badge =
-        document.getElementById(
-            "cart-count"
-        );
-
-    if (!badge) return;
-
-    const totalItems =
-        cart.reduce(
-            (
-                acc: number,
-                item: any
-            ) =>
-                acc +
-                item.cantidad,
-            0
-        );
-
-    badge.textContent =
-        totalItems.toString();
-
-    (
-        badge as HTMLElement
-    ).style.display =
-        totalItems > 0
-            ? "flex"
-            : "none";
-};
-
-updateCartBadge();
-
-// ======================================
-// FILTRAR PEDIDOS
-// ======================================
-
-const userOrders =
-    pedidos.filter(
-        (pedido: any) =>
-            pedido.usuarioId ===
-            session.id
-    );
-
-// ======================================
-// BADGES
-// ======================================
-
-const getBadgeText = (
-    estado: string
-) => {
-
-    switch (estado) {
-
-        case "pending":
-            return "⏳ Pendiente";
-
-        case "processing":
-            return "🍳 En Preparación";
-
-        case "completed":
-            return "✅ Entregado";
-
-        case "cancelled":
-            return "❌ Cancelado";
-
-        default:
-            return estado;
-    }
+const STATUS_MAP: any = {
+    pending: { label: "PENDIENTE", class: "badge-pending", msg: "⏳ Tu pedido está pendiente." },
+    confirmed: { label: "CONFIRMADO", class: "badge-confirmed", msg: "🍳 Tu pedido está siendo preparado." },
+    processing: { label: "PROCESANDO", class: "badge-confirmed", msg: "🍳 Tu pedido está en preparación." },
+    finished: { label: "TERMINADO", class: "badge-finished", msg: "✅ Tu pedido fue entregado." },
+    completed: { label: "COMPLETADO", class: "badge-finished", msg: "✅ Tu pedido fue entregado correctamente." },
+    cancelled: { label: "CANCELADO", class: "badge-cancelled", msg: "❌ El pedido fue cancelado." }
 };
 
 // ======================================
-// RENDER PEDIDOS
+// REFERENCIAS DOM
 // ======================================
+const ordersList = document.getElementById("orders-list") as HTMLElement;
+const modal = document.getElementById("order-modal") as HTMLElement;
+const modalBody = document.getElementById("modal-body") as HTMLElement;
+const closeModal = document.getElementById("close-modal") as HTMLButtonElement;
+const logoutBtn = document.getElementById("logout-btn") as HTMLButtonElement;
 
-const renderOrders = () => {
+// ======================================
+// LÓGICA DE DATOS
+// ======================================
+const fetchAndRenderOrders = async () => {
+    try {
+        const userDataStr = localStorage.getItem("userData");
+        const session = userDataStr ? JSON.parse(userDataStr) : null;
 
-    if (
-        userOrders.length === 0
-    ) {
-
-        ordersList.innerHTML = `
-        
-        <div class="empty-orders">
-
-            <h3>
-                No tienes pedidos
-            </h3>
-
-            <p>
-                Aún no realizaste compras.
-            </p>
-
-            <a
-                href="../../store/home/home.html"
-                class="btn-primary-action"
-            >
-                Ir al catálogo
-            </a>
-
-        </div>
-        `;
-
-        return;
-    }
-
-    ordersList.innerHTML = "";
-
-    userOrders.forEach(
-        (pedido: any) => {
-
-            const card =
-                document.createElement(
-                    "div"
-                );
-
-            card.className =
-                "order-card";
-
-            const productsSummary =
-                pedido.detalles
-                    .slice(0, 3)
-                    .map(
-                        (
-                            item: any
-                        ) =>
-                            item.producto.nombre
-                    )
-                    .join(
-                        ", "
-                    );
-
-            const extraProducts =
-                pedido.detalles.length > 3
-                    ? ` +${pedido.detalles.length - 3} productos`
-                    : "";
-
-            card.innerHTML = `
-
-            <h3>
-                Pedido #${pedido.id}
-            </h3>
-
-            <p>
-                📅 ${pedido.fecha}
-            </p>
-
-            <span
-                class="status-badge ${pedido.estado}"
-            >
-                ${getBadgeText(
-                    pedido.estado
-                )}
-            </span>
-
-            <p>
-                ${productsSummary}
-                ${extraProducts}
-            </p>
-
-            <h4>
-                $${pedido.total.toLocaleString(
-                    "es-AR"
-                )}
-            </h4>
-            `;
-
-            card.addEventListener(
-                "click",
-                () =>
-                    openModal(
-                        pedido
-                    )
-            );
-
-            ordersList.appendChild(
-                card
-            );
+        if (!session || !session.id) {
+            console.error("No hay usuario logueado");
+            return;
         }
-    );
+
+        // Petición al archivo JSON
+        const response = await fetch('/data/pedidos.json');
+        if (!response.ok) throw new Error("Error al cargar pedidos");
+        
+        const allOrders: any[] = await response.json();
+        
+        // Filtramos por usuario
+        const userOrders = allOrders.filter(p => p.usuarioId === session.id);
+
+        if (userOrders.length === 0) {
+            ordersList.innerHTML = `<div class="empty-orders"><h3>No tienes pedidos</h3></div>`;
+            return;
+        }
+
+        renderOrderList(userOrders);
+
+    } catch (error) {
+        console.error(error);
+        ordersList.innerHTML = `<p style="text-align:center;">Error al cargar tus pedidos.</p>`;
+    }
+};
+
+const renderOrderList = (orders: any[]) => {
+    ordersList.innerHTML = "";
+    
+    orders.forEach(pedido => {
+        // Obtenemos el status de forma segura
+        const status = STATUS_MAP[pedido.estado] || { label: pedido.estado, class: "badge-default", msg: "" };
+        
+        const card = document.createElement("div");
+        card.className = "order-card";
+        
+        // Obtenemos nombres de productos de forma segura
+        const summary = pedido.detalles?.map((d: any) => d.producto?.nombre).join(", ") || "Sin productos";
+
+        card.innerHTML = `
+            <h3>Pedido #${pedido.id}</h3>
+            <p>📅 ${pedido.fecha}</p>
+            <span class="status-badge ${status.class}">${status.label}</span>
+            <p>${summary}</p>
+            <h4>$${pedido.total?.toLocaleString("es-AR") || "0"}</h4>
+        `;
+        
+        card.addEventListener("click", () => openModal(pedido));
+        ordersList.appendChild(card);
+    });
 };
 
 // ======================================
 // MODAL
 // ======================================
-
-const openModal = (
-    pedido: any
-) => {
-
-    const subtotal =
-        pedido.detalles.reduce(
-            (
-                acc: number,
-                item: any
-            ) =>
-                acc +
-                item.subtotal,
-            0
-        );
-
-    let message = "";
-
-    switch (pedido.estado) {
-
-        case "pending":
-            message =
-                "⏳ Tu pedido fue recibido y está pendiente de confirmación.";
-            break;
-
-        case "processing":
-            message =
-                "🍳 Tu pedido está siendo preparado.";
-            break;
-
-        case "completed":
-            message =
-                "✅ Tu pedido fue entregado correctamente.";
-            break;
-
-        case "cancelled":
-            message =
-                "❌ El pedido fue cancelado.";
-            break;
-    }
-
+const openModal = (pedido: any) => {
+    const status = STATUS_MAP[pedido.estado] || { label: pedido.estado, class: "badge-default", msg: "" };
+    
     modalBody.innerHTML = `
-
-    <div class="modal-header-order">
-
-        <h2>
-            Pedido #${pedido.id}
-        </h2>
-
-        <span
-            class="status-badge ${pedido.estado}"
-        >
-            ${getBadgeText(
-                pedido.estado
-            )}
-        </span>
-
-        <p class="modal-date">
-            ${pedido.fecha}
-        </p>
-
-    </div>
-
-    <div class="delivery-info">
-
-        <h4>
-            📍 Información de entrega
-        </h4>
-
-        <p>
-            <strong>
-                Dirección:
-            </strong>
-
-            ${pedido.direccion}
-        </p>
-
-        <p>
-            <strong>
-                Método de pago:
-            </strong>
-
-            ${pedido.formaPago}
-        </p>
-
-    </div>
-
-    <div class="modal-products">
-
-        <h4>
-            📦 Productos
-        </h4>
-
-        ${pedido.detalles
-            .map(
-                (
-                    item: any
-                ) => `
-
-                <div class="modal-product">
-
-                    <img
-                        src="${item.producto.imagen}"
-                        alt="${item.producto.nombre}"
-                    >
-
-                    <div class="modal-product-info">
-
-                        <strong>
-                            ${item.producto.nombre}
-                        </strong>
-
-                        <p>
-                            Cantidad:
-                            ${item.cantidad}
-                        </p>
-
-                        <p>
-                            $${item.producto.precio.toLocaleString("es-AR")}
-                        </p>
-
-                    </div>
-
-                    <div class="modal-product-price">
-
-                        $${item.subtotal.toLocaleString("es-AR")}
-
-                    </div>
-
+        <div class="modal-header-order">
+            <h2>Pedido #${pedido.id}</h2>
+            <span class="status-badge ${status.class}">${status.label}</span>
+        </div>
+        <div class="delivery-info">
+            <p><strong>Dirección:</strong> ${pedido.direccion}</p>
+            <p><strong>Forma de pago:</strong> ${pedido.formaPago}</p>
+        </div>
+        <div class="modal-products">
+            ${pedido.detalles?.map((item: any) => `
+                <div class="modal-product" style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                    <span>${item.cantidad}x ${item.producto?.nombre || "Producto"}</span>
+                    <span>$${item.subtotal.toLocaleString("es-AR")}</span>
                 </div>
-            `
-            )
-            .join("")}
-
-    </div>
-
-    <div class="order-summary">
-
-        <div class="summary-row">
-            <span>Subtotal</span>
-            <span>
-                $${subtotal.toLocaleString("es-AR")}
-            </span>
+            `).join("") || ""}
         </div>
-
-        <div class="summary-row">
-            <span>Envío</span>
-            <span>
-                $${pedido.costoEnvio.toLocaleString("es-AR")}
-            </span>
+        <div class="order-summary" style="border-top: 1px solid #ccc; padding-top: 10px;">
+            <p><strong>Costo envío:</strong> $${pedido.costoEnvio.toLocaleString("es-AR")}</p>
+            <h3>Total: $${pedido.total.toLocaleString("es-AR")}</h3>
         </div>
-
-        <div class="summary-total">
-            <span>Total</span>
-            <span>
-                $${pedido.total.toLocaleString("es-AR")}
-            </span>
-        </div>
-
-    </div>
-
-    <div
-        class="order-message message-${pedido.estado}"
-    >
-        ${message}
-    </div>
+        <p style="margin-top:15px; font-style:italic;">${status.msg}</p>
     `;
-
-    modal.classList.remove(
-        "hidden"
-    );
+    modal.classList.remove("hidden");
 };
 
 // ======================================
-// CERRAR MODAL
+// EVENTOS
 // ======================================
+logoutBtn?.addEventListener("click", logout);
+closeModal?.addEventListener("click", () => modal.classList.add("hidden"));
+window.addEventListener("click", (e) => { if (e.target === modal) modal.classList.add("hidden"); });
 
-closeModal.addEventListener(
-    "click",
-    () =>
-        modal.classList.add(
-            "hidden"
-        )
-);
-
-window.addEventListener(
-    "click",
-    (e) => {
-
-        if (
-            e.target === modal
-        ) {
-
-            modal.classList.add(
-                "hidden"
-            );
-        }
-    }
-);
-
-// ======================================
-// INIT
-// ======================================
-
-renderOrders();
+// Inicializar
+fetchAndRenderOrders();
